@@ -1,7 +1,5 @@
-var secrets = require('../config');
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
 
-module.exports = (router) => {
-	return router;
-}
+module.exports = function (app, router) {
+    app.use('/instabosch', require('./home.js')(router));
+};
