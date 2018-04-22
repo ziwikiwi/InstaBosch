@@ -27,6 +27,40 @@ exports.imageGetMonth = function (req, res) {
    });
 }
 
+exports.imageGetDate = function (req, res) {
+    where_query = { 'date' : req.params.id }
+    Foellinger.find(where_query, function(err, images) {
+    if (err)
+      return res.status(404).send({ message: 'Error', data: 'Could not find any images'});
+
+    var i;
+    var count = 0;
+    for (i = 0; i < images.length; i++) {
+      count += image[i].count ;
+    }
+    count = Math.round(count/images.length)
+    result = { 'date' : req.params.id, 'count' : count}
+    res.status(200).json({ message: 'OK', data: result});
+  });
+}
+
+exports.imageGetDay = function (req, res) {
+    where_query = { 'day' : req.params.id }
+    Foellinger.find(where_query, function(err, images) {
+    if (err)
+      return res.status(404).send({ message: 'Error', data: 'Could not find any images'});
+
+    var i;
+    var count = 0;
+    for (i = 0; i < images.length; i++) {
+      count += image[i].count ;
+    }
+    count = Math.round(count/images.length)
+    result = { 'day' : req.params.id, 'count' : count}
+    res.status(200).json({ message: 'OK', data: result});
+  });
+}
+
 exports.imageGetId = function (req, res) {
   Foellinger.findById(req.params.id, function(err, image) {
     if (err || !image)
