@@ -13,5 +13,7 @@ module.exports = function (router) {
     router.route('/foellinger/:id').put(FoellingerController.imageUpdate);
     router.route('/foellinger/:id').delete(FoellingerController.imageDelete);
     router.route('/foellinger/month/:id').get(FoellingerController.imageGetMonth);
+    router.route('/foellinger/date/:id').get(FoellingerController.imageGetDate);
+    router.route('/foellinger/day/:id').get(FoellingerController.imageGetDay);
     return router;
 }
