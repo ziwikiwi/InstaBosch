@@ -3,7 +3,8 @@ import { Button } from "semantic-ui-react";
 import { Link, Redirect } from "react-router-dom";
 import Api from "../Api.js";
 import styles from "./Home.scss";
-
+import Header from '../Header/Header.jsx'
+import Input from '../Input/Input.jsx'
 const api = new Api();
 
 class Home extends Component {
@@ -15,7 +16,7 @@ class Home extends Component {
     }
 
     componentWillMount() {
-      api.getDayCount(5, result => {
+      api.getDayCount(3, result => {
       this.setState({
             count: result.count
         });
@@ -25,7 +26,11 @@ class Home extends Component {
     render() {
         return(
           <div className="Home">
-            Day 5 has { this.state.count } people
+            <Header/>
+            <div className='description'>
+              This code does something. Write here what it does. Decorate it and put it in a box or some shit.
+            </div>
+            <Input/>
           </div>
         );
     }
