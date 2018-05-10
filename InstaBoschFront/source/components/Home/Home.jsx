@@ -91,12 +91,12 @@ class Home extends Component {
             </div>
             <div className="Graph">
               <XYPlot
-              width={300}
+              width={500}
               height={300}>
               <VerticalBarSeries
                 data={this.state.data}/>
-              <XAxis />
-              <YAxis />
+              <XAxis title='month'/>
+              <YAxis title='count'/>
               </XYPlot>
             </div>
             {this.state.unit ? <div><Result count={this.state.result}/></div> : null}
