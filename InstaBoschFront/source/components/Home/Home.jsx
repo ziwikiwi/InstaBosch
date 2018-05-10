@@ -3,8 +3,9 @@ import { Button } from "semantic-ui-react";
 import { Link, Redirect } from "react-router-dom";
 import Api from "../Api.js";
 import styles from "./Home.scss";
-import Header from '../Header/Header.jsx'
-import Input from '../Input/Input.jsx'
+import Header from '../Header/Header.jsx';
+import Input from '../Input/Input.jsx';
+import Search from '../Search/Search.jsx';
 const api = new Api();
 import {XYPlot, XAxis, YAxis, VerticalBarSeries} from 'react-vis';
 
@@ -32,6 +33,7 @@ class Home extends Component {
             <div className='description'>
               This code does something. Write here what it does. Decorate it and put it in a box or some shit.
             </div>
+            <Search />
             <Input/>
             <XYPlot
             width={300}
