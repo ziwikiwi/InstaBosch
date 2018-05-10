@@ -1,6 +1,8 @@
 .Result {
-  padding-top: 50px;
   position: absolute;
+	padding: 5px;
+	border: 1px solid white ;
+	border-radius: 10px;
   top: 125%;
   left: 50%;
   transform: translate(-50%, -50%);
