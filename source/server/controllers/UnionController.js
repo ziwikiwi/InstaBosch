@@ -1,8 +1,8 @@
-var Foellinger = require('../models/foellinger')
+var Union = require('../models/union')
 
 exports.imageGet = function (req, res) {
     where_query = {}
-    Foellinger.find(where_query, function(err, images) {
+    Union.find(where_query, function(err, images) {
      if (err)
        return res.status(404).send({ message: 'Error', data: 'Could not find any images'});
 
@@ -12,7 +12,7 @@ exports.imageGet = function (req, res) {
 
 exports.imageGetMonth = function (req, res) {
     where_query = { 'month' : req.params.id }
-    Foellinger.find(where_query, function(err, images) {
+    Union.find(where_query, function(err, images) {
      if (err)
        return res.status(404).send({ message: 'Error', data: 'Could not find any images'});
 
@@ -30,7 +30,7 @@ exports.imageGetMonth = function (req, res) {
 
 exports.imageGetDate = function (req, res) {
     where_query = { 'date' : req.params.id }
-    Foellinger.find(where_query, function(err, images) {
+    Union.find(where_query, function(err, images) {
     if (err)
       return res.status(404).send({ message: 'Error', data: 'Could not find any images'});
 
@@ -49,7 +49,7 @@ exports.imageGetDate = function (req, res) {
 exports.imageGetDay = function (req, res) {
     where_query = { 'day' : req.params.id }
 
-    Foellinger.find(where_query, function(err, images) {
+    Union.find(where_query, function(err, images) {
     if (err)
       return res.status(404).send({ message: 'Error', data: 'Could not find any images'});
 
@@ -66,7 +66,7 @@ exports.imageGetDay = function (req, res) {
 }
 
 exports.imageGetId = function (req, res) {
-  Foellinger.findById(req.params.id, function(err, image) {
+  Union.findById(req.params.id, function(err, image) {
     if (err || !image)
       return res.status(404).send({ message: 'Error', data: 'Id not found'});
 
@@ -85,7 +85,7 @@ exports.imagePost = function (req, res) {
   req.body.date = date.getDate()
   req.body.month = date.getMonth() + 1
   req.body.year = date.getFullYear()
-  var image = new Foellinger(req.body);
+  var image = new Union(req.body);
   image.save(function(err) {
     if (err)
       return res.status(404).send({ message: 'Error', data: 'Failed to add image'});
@@ -95,7 +95,7 @@ exports.imagePost = function (req, res) {
 }
 
 exports.imageUpdate = function (req, res) {
-  Foellinger.findById(req.params.id, function(err, image) {
+  Union.findById(req.params.id, function(err, image) {
       if (err)
         return res.status(404).send({ message: 'Error', data: 'Failed to update image'});
 
@@ -110,7 +110,7 @@ exports.imageUpdate = function (req, res) {
 }
 
 exports.imageDelete = function (req, res) {
-  Foellinger.findByIdAndRemove(req.params.id, function(err, image) {
+  Union.findByIdAndRemove(req.params.id, function(err, image) {
     if (err || !image)
       return res.status(404).send({ message: 'Error', data: 'Failed to delete image'});
 

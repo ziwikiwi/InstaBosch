@@ -15,7 +15,7 @@ class Home extends Component {
     }
 
     componentWillMount() {
-      api.getAllMonthCount('Foellinger', result => {
+      api.getAllMonthCount('Union', result => {
       let i;
       for(i = 0; i < result.counts.length; i++) { // add all promises to list
         this.data.push({ x : i, y : result.counts[i] });
