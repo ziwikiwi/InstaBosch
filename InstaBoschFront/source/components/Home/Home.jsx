@@ -12,37 +12,75 @@ import {XYPlot, XAxis, YAxis, VerticalBarSeries} from 'react-vis';
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.data = []
+        this.state = {
+          selectedResult: '',
+          displayDropdowns: false,
+          unit: null, 
+          number: 0,
+          data: [],
+          result: 0
+        }
+        this.handleSelectedLocation = this.handleSelectedLocation.bind(this);
+        this.callGraph = this.callGraph.bind(this);
     }
 
-    componentWillMount() {
-      api.getAllMonthCount('Union', result => {
-      let i;
-      for(i = 0; i < result.counts.length; i++) { // add all promises to list
-        this.data.push({ x : i, y : result.counts[i] });
+    callGraph(unit, number) {
+      if (!unit) {
+        console.log('sf', this.state.selectedResult);
+        api.getAllMonthCount(this.state.selectedResult, result => {
+        let i;
+        var currData = [];
+        for(i = 0; i < result.counts.length; i++) { // add all promises to list
+          currData.push({ x : i, y : result.counts[i] });
+        }
+        this.setState({
+          data: currData
+        });
+        console.log(this.data);
+        });
       }
-      console.log(this.data);
-      this.forceUpdate();
+
+      if (unit === 'month') {
+        api.getMonthCount(this.state.selectedResult, number, result => {
+        this.setState({
+          result: result
+        });
+        //TODO: Figure out how to best display result
+        console.log(result);
+        });
+      }
+      
+    }
+
+    handleSelectedLocation(result) {
+      this.setState({
+        selectedResult: result,
+        displayDropdowns: true
+      }, () => {
+        this.callGraph();
       });
     }
 
-    render() {
+    render(props) {
         return(
           <div className="Home">
             <Header/>
             <div className='description'>
-              This code does something. Write here what it does. Decorate it and put it in a box or some shit.
+              Choose a location.
             </div>
-            <Search />
-            <Input/>
+            <div className="Search">
+            <Search {...props} selectLocation={this.handleSelectedLocation}/>
+            </div>
+            {this.state.displayDropdowns ? <Input {...props} generateGraph={this.callGraph}/> : null}
             <XYPlot
             width={300}
             height={300}>
             <VerticalBarSeries
-              data={this.data}/>
+              data={this.state.data}/>
             <XAxis />
             <YAxis />
-          </XYPlot>
+            </XYPlot>
+            {this.state.unit ? <h1> Number of people in the {this.state.value} {this.state.unit} : {this.state.result}</h1> : null}
           </div>
         );
     }

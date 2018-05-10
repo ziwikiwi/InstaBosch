@@ -1,38 +1,56 @@
 import React, { Component } from 'react';
 import { Search as SemanticSearch } from 'semantic-ui-react';
+import styles from "./Search.scss";
 import _ from 'lodash'
 
 class Search extends Component {
 	constructor(props) {
 		super(props);
+		this.selected = '';
+		
 		this.state = {
 			value: "",
-			results: ['Foellinger Auditorium', 'Illini Union', 'Siebel Center'],
-			placeList: ['Foellinger Auditorium', 'Illini Union', 'Siebel Center'],
+			results: [{title: 'Foellinger Auditorium',
+						value: 'foellinger'}, {
+						title: 'Illini Union',
+						value: 'union'}],
+			placeList: [{title: 'Foellinger Auditorium',
+						value: 'foellinger'}, {
+						title: 'Illini Union',
+						value: 'union'}],
 			selected: ''
 		};
+
 		this.returnResults = this.returnResults.bind(this);
+		this.handleResultSelect = this.handleResultSelect.bind(this);
 	}
 
 	returnResults (event, {value}) {
-		this.setState({value});
-		
-		console.log(this.state.value)
+	
 		this.setState({
+			value,
 			results: _.filter(this.state.placeList, (result) => {
 				console.log('is this printing');
-				var starts = _.startsWith(_.lowerCase(result), this.state.value);
+				var starts = _.startsWith(_.lowerCase(result.title), this.state.value);
 				console.log(starts);
 				return starts;
 			})
 		});
-		console.log(this.state.results)
 		
 	}
 
-	handleResultSelect (event, {selected}) {
-		this.setState({selected});
-		this.props.selectedLocation = this.state.selected;
+	handleResultSelect (event, {result}) {
+		this.props.selectLocation(result.value);
+		
+		this.setState({value: result.title,
+			selected: result.value}, () => {
+			this.selected = this.state.selected;
+			console.log('selected: ', this.selected);
+		});
+		
+	
+
+		return this.selected;
 	}
 
 

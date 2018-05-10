@@ -1,12 +1,20 @@
 @import '../../styles/colors';
 
+.Input {
+	display: block;
+	position: absolute;
+	left: 50%;
+	top: 30%;
+	transform: translate(-50%, -50%);
+}
 .Header{
 	background-color: #2185D0;
+	
   padding: 50 50 50 50;
 }
 
 .header-title {
   font-size: x-large;
-  color: white;
+  color: black;
   padding: 50 50 50 50;
 }
