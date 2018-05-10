@@ -8,6 +8,7 @@ import Input from '../Input/Input.jsx';
 import Search from '../Search/Search.jsx';
 const api = new Api();
 import {XYPlot, XAxis, YAxis, VerticalBarSeries} from 'react-vis';
+import Filler from '../Filler/Filler.jsx';
 
 class Home extends Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class Home extends Component {
         this.state = {
           selectedResult: '',
           displayDropdowns: false,
-          unit: null, 
+          unit: null,
           number: 0,
           data: [],
           result: 0
@@ -49,7 +50,7 @@ class Home extends Component {
         console.log(result);
         });
       }
-      
+
     }
 
     handleSelectedLocation(result) {
@@ -71,7 +72,9 @@ class Home extends Component {
             <div className="Search">
             <Search {...props} selectLocation={this.handleSelectedLocation}/>
             </div>
-            {this.state.displayDropdowns ? <Input {...props} generateGraph={this.callGraph}/> : null}
+            <div className="Dropdown">
+              {this.state.displayDropdowns ? <Input {...props} generateGraph={this.callGraph}/> : null}
+            </div>
             <XYPlot
             width={300}
             height={300}>
@@ -81,6 +84,7 @@ class Home extends Component {
             <YAxis />
             </XYPlot>
             {this.state.unit ? <h1> Number of people in the {this.state.value} {this.state.unit} : {this.state.result}</h1> : null}
+            <Filler/>
           </div>
         );
     }

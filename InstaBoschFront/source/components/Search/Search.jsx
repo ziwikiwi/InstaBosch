@@ -7,7 +7,7 @@ class Search extends Component {
 	constructor(props) {
 		super(props);
 		this.selected = '';
-		
+
 		this.state = {
 			value: "",
 			results: [{title: 'Foellinger Auditorium',
@@ -26,7 +26,7 @@ class Search extends Component {
 	}
 
 	returnResults (event, {value}) {
-	
+
 		this.setState({
 			value,
 			results: _.filter(this.state.placeList, (result) => {
@@ -36,19 +36,19 @@ class Search extends Component {
 				return starts;
 			})
 		});
-		
+
 	}
 
 	handleResultSelect (event, {result}) {
 		this.props.selectLocation(result.value);
-		
+
 		this.setState({value: result.title,
 			selected: result.value}, () => {
 			this.selected = this.state.selected;
 			console.log('selected: ', this.selected);
 		});
-		
-	
+
+
 
 		return this.selected;
 	}
@@ -58,9 +58,9 @@ class Search extends Component {
 		const {value, results, selected} = this.state;
 		return(
 			<div>
-				<h2> Finding Popular Attractions Near You </h2>
-				<SemanticSearch 
-					onSearchChange= {this.returnResults}
+				<SemanticSearch
+				  fluid = { true }
+					onSearchChange = {this.returnResults}
 					type='text'
 					value = {value}
 					results = {results}

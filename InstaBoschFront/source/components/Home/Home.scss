@@ -8,5 +8,13 @@
 
 .description {
   padding-top: 50px;
+  font-size: 20px;
+}
 
+.Dropdown {
+  padding-top: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
