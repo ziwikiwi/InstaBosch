@@ -6,20 +6,22 @@ import styles from "./Home.scss";
 import Header from '../Header/Header.jsx'
 import Input from '../Input/Input.jsx'
 const api = new Api();
+import {XYPlot, XAxis, YAxis, VerticalBarSeries} from 'react-vis';
 
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            count: "",
-        };
+        this.data = []
     }
 
     componentWillMount() {
-      api.getDayCount(3, result => {
-      this.setState({
-            count: result.count
-        });
+      api.getAllMonthCount(result => {
+      let i;
+      for(i = 0; i < result.counts.length; i++) { // add all promises to list
+        this.data.push({ x : i, y : result.counts[i] });
+      }
+      console.log(this.data);
+      this.forceUpdate();
       });
     }
 
@@ -31,6 +33,14 @@ class Home extends Component {
               This code does something. Write here what it does. Decorate it and put it in a box or some shit.
             </div>
             <Input/>
+            <XYPlot
+            width={300}
+            height={300}>
+            <VerticalBarSeries
+              data={this.data}/>
+            <XAxis />
+            <YAxis />
+          </XYPlot>
           </div>
         );
     }
