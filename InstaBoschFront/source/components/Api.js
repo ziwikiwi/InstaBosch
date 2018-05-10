@@ -3,17 +3,17 @@ import axios from 'axios';
 class Api {
 
   constructor() {
-    const url = 'http://localhost:3000/instabosch/foellinger';
+    const url = 'http://localhost:3000/instabosch/';
     axios.defaults.baseURL = url;
     axios.defaults.withCredentials = true  // enable axios post cookie, default false
   }
 
-  getAllMonthCount(callback) {
+  getAllMonthCount(place, callback) {
     let entryPromises = new Array(); //list of entry get promises
     let entryList = new Array(); //list of entry get promises
     let i;
     for(i = 0; i < 12; i++) { // add all promises to list
-      entryPromises.push(axios.get('/month/' + i + '/'));
+      entryPromises.push(axios.get(place + '/month/' + i + '/'));
     }
 
     axios.all(entryPromises)
@@ -27,22 +27,22 @@ class Api {
       })
   }
 
-  getMonthCount(month ,callback) {
-    axios.get('/month/' + month + '/')
+  getMonthCount(place, month ,callback) {
+    axios.get(place + '/month/' + month + '/')
       .then(result => {
         callback(result.data.data);
       });
   }
 
-  getDateCount(date ,callback) {
-    axios.get('/date/' + date + '/')
+  getDateCount(place, date ,callback) {
+    axios.get(place + '/date/' + date + '/')
       .then(result => {
         callback(result.data.data);
       });
   }
 
-  getDayCount(day ,callback) {
-    axios.get('/day/' + day + '/')
+  getDayCount(place, day ,callback) {
+    axios.get(place + '/day/' + day + '/')
       .then(result => {
         callback(result.data.data);
       });
