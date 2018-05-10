@@ -1,5 +1,6 @@
 var secrets = require('../config');
 var FoellingerController = require('../controllers/FoellingerController')
+var UnionController = require('../controllers/UnionController')
 
 module.exports = function (router) {
 
@@ -15,5 +16,14 @@ module.exports = function (router) {
     router.route('/foellinger/month/:id').get(FoellingerController.imageGetMonth);
     router.route('/foellinger/date/:id').get(FoellingerController.imageGetDate);
     router.route('/foellinger/day/:id').get(FoellingerController.imageGetDay);
+
+    router.route('/union').post(UnionController.imagePost);
+    router.route('/union').get(UnionController.imageGet);
+    router.route('/union/:id').get(UnionController.imageGetId);
+    router.route('/union/:id').put(UnionController.imageUpdate);
+    router.route('/union/:id').delete(UnionController.imageDelete);
+    router.route('/union/month/:id').get(UnionController.imageGetMonth);
+    router.route('/union/date/:id').get(UnionController.imageGetDate);
+    router.route('/union/day/:id').get(UnionController.imageGetDay);
     return router;
 }
