@@ -6,6 +6,7 @@ import styles from "./Home.scss";
 import Header from '../Header/Header.jsx';
 import Input from '../Input/Input.jsx';
 import Search from '../Search/Search.jsx';
+import Result from '../Result/Result.jsx';
 const api = new Api();
 import {XYPlot, XAxis, YAxis, VerticalBarSeries} from 'react-vis';
 import Filler from '../Filler/Filler.jsx';
@@ -16,7 +17,7 @@ class Home extends Component {
         this.state = {
           selectedResult: '',
           displayDropdowns: false,
-          unit: null,
+          unit: false,
           number: 0,
           data: [],
           result: 0
@@ -27,7 +28,6 @@ class Home extends Component {
 
     callGraph(unit, number) {
       if (!unit) {
-        console.log('sf', this.state.selectedResult);
         api.getAllMonthCount(this.state.selectedResult, result => {
         let i;
         var currData = [];
@@ -37,17 +37,31 @@ class Home extends Component {
         this.setState({
           data: currData
         });
-        console.log(this.data);
         });
       }
 
       if (unit === 'month') {
         api.getMonthCount(this.state.selectedResult, number, result => {
         this.setState({
-          result: result
+          result: result.count,
+          unit: true
         });
-        //TODO: Figure out how to best display result
-        console.log(result);
+        });
+      }
+      if (unit === 'date') {
+        api.getDateCount(this.state.selectedResult, number, result => {
+        this.setState({
+          result: result.count,
+          unit: true
+        });
+        });
+      }
+      if (unit === 'day') {
+        api.getDayCount(this.state.selectedResult, number, result => {
+        this.setState({
+          result: result.count,
+          unit: true
+        });
         });
       }
 
@@ -75,15 +89,17 @@ class Home extends Component {
             <div className="Dropdown">
               {this.state.displayDropdowns ? <Input {...props} generateGraph={this.callGraph}/> : null}
             </div>
-            <XYPlot
-            width={300}
-            height={300}>
-            <VerticalBarSeries
-              data={this.state.data}/>
-            <XAxis />
-            <YAxis />
-            </XYPlot>
-            {this.state.unit ? <h1> Number of people in the {this.state.value} {this.state.unit} : {this.state.result}</h1> : null}
+            <div className="Graph">
+              <XYPlot
+              width={300}
+              height={300}>
+              <VerticalBarSeries
+                data={this.state.data}/>
+              <XAxis />
+              <YAxis />
+              </XYPlot>
+            </div>
+            {this.state.unit ? <div><Result count={this.state.result}/></div> : null}
             <Filler/>
           </div>
         );

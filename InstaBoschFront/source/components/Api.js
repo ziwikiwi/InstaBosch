@@ -10,7 +10,6 @@ class Api {
 
   getAllMonthCount(place, callback) {
     
-    console.log(place);
     let entryPromises = new Array(); //list of entry get promises
     let entryList = new Array(); //list of entry get promises
     let i;

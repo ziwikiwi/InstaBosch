@@ -30,9 +30,7 @@ class Search extends Component {
 		this.setState({
 			value,
 			results: _.filter(this.state.placeList, (result) => {
-				console.log('is this printing');
 				var starts = _.startsWith(_.lowerCase(result.title), this.state.value);
-				console.log(starts);
 				return starts;
 			})
 		});

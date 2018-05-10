@@ -14,7 +14,7 @@ class Input extends Component {
                     value: 'day'
                 },{
                     text: 'Date',
-                    value: 'date' 
+                    value: 'date'
                 }],
             dayrange: _.range(31).map((date) => {
                 return {
@@ -39,7 +39,6 @@ class Input extends Component {
             if (value === "month") numdays = 12;
             if (value === "day") numdays = 7;
             if (value === "date") numdays = 31;
-            console.log(value);
             this.setState({
                 dayrange: _.range(numdays).map((date) => {
                     return {
@@ -52,16 +51,13 @@ class Input extends Component {
     }
 
     dayHandler(event, {value}) {
-        console.log(value);
         this.setState({
             value: value
         }, () => {
-            console.log(this.state.value);
         });
     }
 
     handleButtonClick (event) {
-        console.log('hi');
         this.props.generateGraph(this.state.timeunit, this.state.value);
     }
 
@@ -70,7 +66,7 @@ class Input extends Component {
         return(
           <div className="Input">
             <Dropdown placeholder='Length' fluid selection options={lengthrange} onChange={this.monthHandler} value = {timeunit}/>
-            <Dropdown  fluid selection options={dayrange} onChange={this.dayHandler} value = {value}/> 
+            <Dropdown  fluid selection options={dayrange} onChange={this.dayHandler} value = {value}/>
             <Button onClick={this.handleButtonClick}>Generate Graph</Button>
           </div>
         );
